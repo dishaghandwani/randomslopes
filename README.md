@@ -25,11 +25,10 @@ D. Ghandwani, S. Ghosh, T. Hastie, A. Owen
 ## Examples 
 
 ```py
-
-import pyreadr
+from randomslopes import *
 import numpy as np
 import cvxpy as cp
-import mosek
+import mosek # you need a license for this
 from numpy.linalg import inv, norm
 from scipy.linalg import sqrtm
 import pandas as pd
