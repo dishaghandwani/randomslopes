@@ -58,8 +58,8 @@ Sigmab = np.diag(np.repeat(0.1, p_b))
 X = np.column_stack((np.ones(N), np.random.normal(size=(N, p))))
 X_a = np.column_stack((np.ones(N), np.random.normal(size=(N, p_a))))
 X_b = np.column_stack((np.ones(N), np.random.normal(size=(N, p_b))))
-A = np.random.multivariate_normal(np.zeros(p+1), cov=Sigmaa, size=R)
-B = np.random.multivariate_normal(np.zeros(p+1), cov=Sigmab, size=C)
+A = np.random.multivariate_normal(np.zeros(p_a), cov=Sigmaa, size=R)
+B = np.random.multivariate_normal(np.zeros(p_b), cov=Sigmab, size=C)
 
 y = np.dot(X, beta) + np.sum(X_a * A[f1, :], axis=1) + np.sum(X_b * B[f2, :], axis=1) + np.random.normal(scale=sigmae, size=N)
 
