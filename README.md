@@ -22,7 +22,7 @@ D. Ghandwani, S. Ghosh, T. Hastie, A. Owen
  -   `movie_lens_results.zip` Zip folder containing the results on fit on the movie lens dataset. 
 
 
-## Examples 
+## Examples
 
 ```py
 from randomslopes import *
@@ -39,8 +39,9 @@ import statsmodels.api as sm
 linear_model = LinearRegression()
 
 gam = 3.0
-p = 1
-diagonal = False
+p = 7
+p_a = 3
+p_b = 4
 
 N = round(10**gam)
 R = round(N**0.6)
@@ -51,19 +52,18 @@ f2 = np.random.choice(np.arange(0, C), N, replace=True)
 beta = 0.1 * np.arange(1, p + 2)
 sigmae = 1
 
-if diagonal:
-    Sigmaa = np.diag(np.repeat(0.3, p + 1))
-    Sigmab = np.diag(np.repeat(0.1, p + 1))
-else:
-    Sigmaa = np.diag(np.repeat(0.8, p + 1)) + 0.2 * np.ones((p + 1, p + 1))
-    Sigmab = np.diag(np.repeat(0.8, p + 1)) + 0.2 * np.ones((p + 1, p + 1))
+Sigmaa = np.diag(np.repeat(0.8, p_a)) + 0.2 * np.ones((p_a, p_a))
+ Sigmab = np.diag(np.repeat(0.1, p_b))
 
 X = np.column_stack((np.ones(N), np.random.normal(size=(N, p))))
+X_a = np.column_stack((np.ones(N), np.random.normal(size=(N, p_a))))
+X_b = np.column_stack((np.ones(N), np.random.normal(size=(N, p_b))))
 A = np.random.multivariate_normal(np.zeros(p+1), cov=Sigmaa, size=R)
 B = np.random.multivariate_normal(np.zeros(p+1), cov=Sigmab, size=C)
 
-y = np.dot(X, beta) + np.sum(X * A[f1, :], axis=1) + np.sum(X * B[f2, :], axis=1) + np.random.normal(scale=sigmae, size=N)
-p_a = p + 1
-p_b = p + 1
+y = np.dot(X, beta) + np.sum(X_a * A[f1, :], axis=1) + np.sum(X_b * B[f2, :], axis=1) + np.random.normal(scale=sigmae, size=N)
+
+fit = scalable_crossed_random(y, X, X_a, X_b, f1, f2, Sigma_a_diagonal = False, Sigma_b_diagonal = TRUE, 
+                            variational = True, clubbing = True, method_of_mom = True, beta_covariance = TRUE)
 
 ```
