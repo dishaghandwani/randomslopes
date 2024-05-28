@@ -53,7 +53,7 @@ beta = 0.1 * np.arange(1, p + 2)
 sigmae = 1
 
 Sigmaa = np.diag(np.repeat(0.8, p_a)) + 0.2 * np.ones((p_a, p_a))
- Sigmab = np.diag(np.repeat(0.1, p_b))
+Sigmab = np.diag(np.repeat(0.1, p_b))
 
 X = np.column_stack((np.ones(N), np.random.normal(size=(N, p))))
 X_a = np.column_stack((np.ones(N), np.random.normal(size=(N, p_a))))
